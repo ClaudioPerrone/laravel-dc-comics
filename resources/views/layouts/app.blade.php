@@ -17,10 +17,11 @@
 
 <body>
 
-    <main>
-        @yield('main-content')
+    <main class="container mt-5">
+        @yield('content')
     </main>
 
 </body>
 
 </html>
+

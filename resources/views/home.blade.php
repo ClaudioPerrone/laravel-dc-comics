@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
-@section('main-content')
-    Sono la home
+@section('content')
+    <h1>Welcome to the Comic Archive</h1>
+    <p>This is the home page.</p>
 @endsection
