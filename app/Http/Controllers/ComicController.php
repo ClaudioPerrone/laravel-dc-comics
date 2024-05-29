@@ -7,6 +7,32 @@ use Illuminate\Http\Request;
 
 class ComicController extends Controller
 {
+
+    // Mostra il form di modifica per il comic specificato
+    public function edit(Comic $comic)
+    {
+        return view('comics.edit', compact('comic'));
+    }
+
+
+    public function update(Request $request, Comic $comic)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'series' => 'required|string|max:255',
+            'sale_date' => 'required|date',
+            'type' => 'required|string|max:255',
+        ]);
+
+        $comic->update($request->only(['title', 'description', 'price', 'series', 'sale_date', 'type']));
+
+        return redirect()->route('comics.index')->with('success', 'Comic updated successfully');
+    }
+
+
+
     public function index()
     {
         $comics = Comic::all();
@@ -27,6 +53,8 @@ class ComicController extends Controller
 
     public function store(Request $request)
     {
+        //dd($request->all());
+
         $data = $request->validate([
             'title' => 'required',
             'description' => 'nullable',
@@ -37,8 +65,10 @@ class ComicController extends Controller
             'type' => 'required',
         ]);
 
-        Comic::create($data);
+    // Aggiorna i campi fillable
+    $comic->update($request->only(['title', 'description', 'price', 'series', 'sale_date', 'type']));
 
-        return redirect()->route('comics.index');
+    // Reindirizza l'utente con un messaggio di successo
+    return redirect()->route('comics.index')->with('success', 'Comic updated successfully');
     }
 }

@@ -3,6 +3,11 @@
 @section('content')
     <h1>Comics List</h1>
     <div class="container">
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
         <div class="row">
             @foreach ($comics as $comic)
                 <div class="col-md-4">
@@ -16,6 +21,7 @@
                             <p class="card-text"><strong>Sale Date:</strong> {{ $comic->sale_date }}</p>
                             <p class="card-text"><strong>Type:</strong> {{ $comic->type }}</p>
                             <a href="{{ route('comics.show', $comic->id) }}" class="btn btn-primary">View Details</a>
+                            <a href="{{ route('comics.edit', $comic->id) }}" class="btn btn-secondary">Edit</a>
                         </div>
                     </div>
                 </div>
@@ -23,3 +29,4 @@
         </div>
     </div>
 @endsection
+
